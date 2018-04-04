@@ -8,11 +8,16 @@ import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 
+import { DemoComponent as DefaultDemoComponent } from './calender/component';
+import { DemoModule as DefaultDemoModule } from './calender/module';
+
+
 @NgModule({
     imports: [
         CommonModule,
         LayoutRoutingModule,
         TranslateModule,
+        DefaultDemoModule,
         NgbDropdownModule.forRoot()
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]

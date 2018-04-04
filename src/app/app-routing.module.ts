@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 
+// import { DemoComponent as DefaultDemoComponent } from './kitchen-sink/component';
+// import { DemoModule as DefaultDemoModule } from './kitchen-sink/module';
+
 const routes: Routes = [
     { path: '', loadChildren: './layout/layout.module#LayoutModule', canActivate: [AuthGuard] },
     { path: 'login', loadChildren: './login/login.module#LoginModule' },
@@ -10,6 +13,12 @@ const routes: Routes = [
     { path: 'error', loadChildren: './server-error/server-error.module#ServerErrorModule' },
     { path: 'access-denied', loadChildren: './access-denied/access-denied.module#AccessDeniedModule' },
     { path: 'not-found', loadChildren: './not-found/not-found.module#NotFoundModule' },
+    // {path: 'calender', 
+    //     component: DefaultDemoComponent,
+    //     data: {
+    //     label: 'Dashboard Calender'
+    //     }        
+    // },
     { path: '**', redirectTo: 'not-found' }
 ];
 

@@ -10,6 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 
+import { CalendarModule } from 'angular-calendar';
+// import { DemoComponent as DefaultDemoComponent } from './kitchen-sink/component';
+// import { DemoModule as DefaultDemoModule } from './kitchen-sink/module';
+import { IternaryService } from './shared/services/iternary.service'
+
+declare var require: any;
+
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
     // for development
@@ -22,6 +29,8 @@ export function createTranslateLoader(http: HttpClient) {
         CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
+        CalendarModule.forRoot(),
+        // DefaultDemoModule,
         HttpClientModule,
         TranslateModule.forRoot({
             loader: {
@@ -33,7 +42,7 @@ export function createTranslateLoader(http: HttpClient) {
         AppRoutingModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard],
+    providers: [AuthGuard,IternaryService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
