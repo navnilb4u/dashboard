@@ -1,0 +1,238 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card mb-3">
+      <div class="card-header">Reservations</div>
+      <div class="card-body">
+
+          
+              <table class="card-body table table-hover" *ngIf="reservations.length > 0">
+                  <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Flight Name</th>
+                      <th>Confirmation #</th>
+                      <th>From</th>
+                      <th>To</th>
+                  </tr>
+                  </thead>
+                  
+                  <tbody>
+                      
+                  <tr *ngFor="let res of reservations; let i = index" >
+                      <th scope="row">{{i+1}}</th>
+                      <td> {{res.name}}</td>
+                      <td>#{{res.confirmationNumber}}</td>
+                      <td><address>{{res.from}}<br> {{res.start | date:'medium'}} </address></td>
+                      <td><address>{{res.to}} <br> {{res.end | date:'medium'}}</address></td>
+                  </tr>
+                  
+                  
+                  </tbody>
+                
+              </table>
+          
+
+          <!-- <div class="card text-left" *ngIf="reservations.length > 0">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                  <li class="nav-item" *ngFor="let res of reservations" >
+                    <a class="nav-link" [class.active]="res === selectedRsrvns"
+                    (click)="selectedReservation(res)">{{res.name}}
+                      <br>
+                      <small class="text-muted">{{res.from}}-{{res.to}}</small>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body" >
+                <h5 class="card-title">
+                    {{selectedRsrvns.name}}
+                </h5>
+                <p class="card-text">
+                  Confirmation # {{selectedRsrvns.confirmationNumber}}
+                </p>
+                <div class="row">
+                  <div class="col-md-2">
+                    <strong>{{selectedRsrvns.from}}</strong>
+                  </div>
+                  <div class="col-md-2">
+                    <strong>{{selectedRsrvns.to}}</strong>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <small class="text-secondary">{{selectedRsrvns.startDateTime}}</small>
+                  </div>
+                  <div class="col-md-2">
+                    <small class="text-secondary">{{selectedRsrvns.endDateTime}}</small>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div [hidden]="submitted">
+                <form (ngSubmit)="addReservation()" #hero1Form="ngForm">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="name">Flight Name</label>
+                    <input type="text" class="form-control" required id="name" [(ngModel)]="reservation.name" name="name" #name="ngModel">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="lastName">Confirmation #</label>
+                    <input type="text" class="form-control" required id="confirmationNumber" [(ngModel)]="reservation.confirmationNumber" name="confirmationNumber"
+                      #confirmationNumber="ngModel">
+                  </div>
+                </div>
+            
+            
+                <div class="form-row">
+            
+                  <div class="form-group col-md-6">
+                    <label for="city">From</label>
+                    <input type="text" class="form-control"  required id="from" [(ngModel)]="reservation.from" name="from"
+                    #from="ngModel">
+
+                  </div>
+                  <!-- <div class="form-group col-md-6">
+                    <label for="state">Date-Time</label>
+                    <input type="text" class="form-control" required id="startDateTime" [(ngModel)]="reservation.startDateTime" name="startDateTime"
+                      #startDateTime="ngModel">
+                  </div> -->
+                  <div class="form-group col-md-6">
+                      <label for="to">To</label>
+                      <input type="text" class="form-control" required id="to" [(ngModel)]="reservation.to" name="to"
+                      #to="ngModel">
+                    </div>
+                  
+            
+                </div>
+                <div class="form-row">
+            
+                    <div class="form-group col-md-6">
+                      <label for="start">Start time</label>
+                      
+                        <mwl-demo-utils-date-time-picker
+                          [(ngModel)]="reservation.start" name="start"
+                          placeholder="Not set">
+                        </mwl-demo-utils-date-time-picker>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="end">End time</label>
+                      
+                      <mwl-demo-utils-date-time-picker
+                          [(ngModel)]="reservation.end" name="end"
+                          placeholder="Not set">
+                        </mwl-demo-utils-date-time-picker>
+                    </div>
+              
+                  </div>
+                <!-- <div class="form-row">
+            
+                  <div class="form-group col-md-6">
+                    <label for="to">To</label>
+                    <input type="text" class="form-control" required id="to" [(ngModel)]="reservation.to" name="to"
+                    #to="ngModel">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="state">Date-Time</label>
+                    <input type="text" class="form-control" required id="endDateTime" [(ngModel)]="reservation.endDateTime" name="endDateTime"
+                      #endDateTime="ngModel">
+                  </div>
+                </div> -->
+                <div class="m-t-1 m-b-1">
+                    <button type="submit" class="btn btn-primary m-t-1">Add</button>
+                  </div>
+              </form>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+            
+
+<!-- <h3 class="bg-primary text-white mt-2">Reservations</h3>
+<div class="card text-left" *ngIf="reservations.length > 0">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item" *ngFor="let res of reservations" >
+        <a class="nav-link" [class.active]="res === selectedRsrvns"
+        (click)="selectedReservation(res)">{{res.name}}
+          <br>
+          <small class="text-muted">{{res.from}}-{{res.to}}</small>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body" >
+    <h5 class="card-title">
+        {{selectedRsrvns.name}}
+    </h5>
+    <p class="card-text">
+      Confirmation # {{selectedRsrvns.confirmationNumber}}
+    </p>
+    <div class="row">
+      <div class="col-md-2">
+        <strong>{{selectedRsrvns.from}}</strong>
+      </div>
+      <div class="col-md-2">
+        <strong>{{selectedRsrvns.to}}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <small class="text-secondary">{{selectedRsrvns.startDateTime}}</small>
+      </div>
+      <div class="col-md-2">
+        <small class="text-secondary">{{selectedRsrvns.endDateTime}}</small>
+      </div>
+    </div>
+  </div>
+</div>
+<div [hidden]="submitted">
+    <form (ngSubmit)="addReservation()" #hero1Form="ngForm">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="name">Flight Name</label>
+        <input type="text" class="form-control" required id="name" [(ngModel)]="reservation.name" name="name" #name="ngModel">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="lastName">Confirmation #</label>
+        <input type="text" class="form-control" required id="confirmationNumber" [(ngModel)]="reservation.confirmationNumber" name="confirmationNumber"
+          #confirmationNumber="ngModel">
+      </div>
+    </div>
+
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label for="city">From</label>
+        <input type="text" class="form-control"  required id="from" [(ngModel)]="reservation.from" name="from"
+        #from="ngModel">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="state">Date-Time</label>
+        <input type="text" class="form-control" required id="startDateTime" [(ngModel)]="reservation.startDateTime" name="startDateTime"
+          #startDateTime="ngModel">
+      </div>
+
+    </div>
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+        <label for="to">To</label>
+        <input type="text" class="form-control" required id="to" [(ngModel)]="reservation.to" name="to"
+        #to="ngModel">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="state">Date-Time</label>
+        <input type="text" class="form-control" required id="endDateTime" [(ngModel)]="reservation.endDateTime" name="endDateTime"
+          #endDateTime="ngModel">
+      </div>
+    </div>
+    <div class="m-t-1 m-b-1">
+        <button type="submit" class="btn btn-primary m-t-1">Add</button>
+      </div>
+  </form>
+</div> -->

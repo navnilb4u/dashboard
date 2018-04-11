@@ -1,0 +1,171 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card mb-3">
+      <div class="card-header">Hotel booking</div>
+      <div class="card-body">
+
+          <table class="card-body table table-hover" *ngIf="bookings.length > 0">
+              <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Confirmation #</th>
+                  <th>Address</th>
+                  <th>CheckIn</th>
+                  <th>CheckOut</th>
+              </tr>
+              </thead>
+              
+              <tbody>
+                  
+              <tr *ngFor="let bkng of bookings; let i = index" >
+                  <th scope="row">{{i+1}}</th>
+                  <td> {{bkng.name}}</td>
+                  <td>{{bkng.confirmationNumber}}</td>
+                  <td>
+                  <address>
+                  
+                  {{bkng.address}}
+                  <br> {{bkng.city}}, {{bkng.state}} {{bkng.zip}}
+                  <br><abbr title="Phone">P:</abbr> {{selectedBooking.phone}}
+                </address>  
+                  </td>
+                  <td>{{bkng.start | date:'medium'}}</td>
+                  <td>{{bkng.end | date:'medium'}}</td>
+              </tr>
+              
+              
+              </tbody>
+            
+          </table>
+
+        
+          <!-- <div class="card text-left" *ngIf="bookings.length > 0">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                  <li class="nav-item" *ngFor="let res of bookings" >
+                    <a class="nav-link" [class.active]="res === selectedBooking"
+                    (click)="selectedReservation(res)">{{res.name}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body" >
+                
+                
+                <p class="card-text">
+                  Confirmation # {{selectedBooking.confirmationNumber}}
+                </p>
+                <address>
+                    <strong>{{selectedBooking.name}}</strong><br>
+                    {{selectedBooking.address}}<br>
+                    {{selectedBooking.city}}, {{selectedBooking.state}} {{selectedBooking.zip}}<br>
+                    <abbr title="Phone">P:</abbr> {{selectedBooking.phone}}
+                  </address>
+                <div class="row">
+                  <div class="col-md-2">
+                    <strong>CheckIn</strong>
+                  </div>
+                  <div class="col-md-2">
+                    <strong>CheckOut</strong>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <small class="text-secondary">{{selectedBooking.startDateTime}}</small>
+                  </div>
+                  <div class="col-md-2">
+                    <small class="text-secondary">{{selectedBooking.endDateTime}}</small>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          
+          <div>
+              <form (ngSubmit)="addHotelBooking()" #hero2Form="ngForm">
+              
+                  <div class="form-row">
+                      <div class="form-group col-md-4">
+                        <label for="name">Hotel Name</label>
+                        <input type="text" class="form-control" required id="name" [(ngModel)]="booking.name" name="name" #name="ngModel">
+                      </div>
+                      <div class="form-group col-md-4">
+                          <label for="phone">Phone #</label>
+                          <input type="text" class="form-control" required id="phone" [(ngModel)]="booking.phone" name="phone"
+                            #confirmationNumber="ngModel">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="lastName">Confirmation #</label>
+                            <input type="text" class="form-control" required id="confirmationNumber" [(ngModel)]="booking.confirmationNumber" name="confirmationNumber"
+                              #confirmationNumber="ngModel">
+                          </div>
+                    </div>
+
+          
+          
+              <!-- <div class="form-row">
+                  
+                <div class="form-group col-md-4">
+                  <label for="city">Checkin</label>
+                  <input type="text" class="form-control" required id="startDateTime" [(ngModel)]="booking.startDateTime" name="startDateTime"
+                    #startDateTime="ngModel">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="state">CheckOut</label>
+                  <input type="text" class="form-control" required id="endDateTime" [(ngModel)]="booking.endDateTime" name="endDateTime"
+                    #startDateTime="ngModel">
+                </div>
+          
+              </div> -->
+          
+              <div class="form-row">
+                  <div class="form-group  col-md-12">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" [(ngModel)]="booking.address" name="address">
+                  </div>
+                </div>
+                <div class="form-row">
+              
+                  <div class="form-group col-md-4">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" [(ngModel)]="booking.city" name="city">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" [(ngModel)]="booking.state" name="state">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="zip">Zip</label>
+                    <input type="text" class="form-control" id="zip" [(ngModel)]="booking.zip" name="zip">
+                  </div>
+                </div>
+                <div class="form-row">
+            
+                    <div class="form-group col-md-4">
+                      <label for="start">Start time</label>
+                      
+                        <mwl-demo-utils-date-time-picker
+                          [(ngModel)]="booking.start" name="start"
+                          placeholder="Not set">
+                        </mwl-demo-utils-date-time-picker>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="end">End time</label>
+                      
+                      <mwl-demo-utils-date-time-picker
+                          [(ngModel)]="booking.end" name="end"
+                          placeholder="Not set">
+                        </mwl-demo-utils-date-time-picker>
+                    </div>
+              
+                  </div>
+              <div class="m-t-1 m-b-1">
+                  <button type="submit" class="btn btn-primary m-t-1">Add</button>
+                </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+          

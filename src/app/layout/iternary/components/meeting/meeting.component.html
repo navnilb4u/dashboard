@@ -1,0 +1,154 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card mb-3">
+      <div class="card-header">Meeting</div>
+      <div class="card-body">
+
+          <table class="card-body table table-hover" *ngIf="meetings.length > 0">
+              <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Agenda</th>
+                  <th>Attendees</th>
+                  <th>Address</th>
+                  <th>From</th>
+                  <th>To</th>
+              </tr>
+              </thead>
+              
+              <tbody>
+                  
+              <tr *ngFor="let mnts of meetings; let i = index" >
+                  <th scope="row">{{i+1}}</th>
+                  <td> {{mnts.title}}</td>
+                  <td>{{mnts.attendee.firstName}} {{mnts.attendee.lastName}}</td>
+                  <td>
+                  <address>
+                  
+                  {{mnts.address}}
+                  <br> {{mnts.city}}, {{mnts.state}} {{mnts.zip}}
+                  
+                </address>  
+                  </td>
+                  <td>{{mnts.start | date:'medium'}}</td>
+                  <td>{{mnts.end | date:'medium'}}</td>
+              </tr>
+              
+              
+              </tbody>
+            
+          </table>
+
+          <!-- <div class="card text-left" *ngFor="let selectedMeeting of meetings">
+              <div class="card-body">
+            
+                <p class="card-text">
+                  <strong>Agenda:</strong> {{selectedMeeting.title}}
+                </p>
+                <p class="card-text">
+                    <strong>Attendees: </strong> {{selectedMeeting.attendee.firstName}} {{selectedMeeting.attendee.lastName}}
+                </p>
+                <address>
+                    <strong>Address:</strong> <br>
+                  <small class="text-secondary">
+                   
+                  {{selectedMeeting.address}}
+                  <br> {{selectedMeeting.city}}, {{selectedMeeting.state}} {{selectedMeeting.zip}}
+                  </small>
+                </address>
+                <div class="row">
+                  <div class="col-md-2">
+                    <strong>From</strong>
+                  </div>
+                  <div class="col-md-2">
+                    <strong>To</strong>
+                  </div>
+            
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <small class="text-secondary">{{selectedMeeting.start}}</small>
+                  </div>
+                  <div class="col-md-2">
+                    <small class="text-secondary">{{selectedMeeting.end}}</small>
+                  </div>
+                  
+                </div>
+              </div>
+            </div> -->
+            
+            <div>
+              <form (ngSubmit)="addMeeting()" #hero3Form="ngForm">
+            
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="title">Agenda</label>
+                    <input type="text" class="form-control" required id="title" [(ngModel)]="meeting.title" name="name" #title="ngModel">
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="startTime">Attendee First Name</label>
+                      <input type="text" class="form-control" required id="firstName" [(ngModel)]="meeting.attendee.firstName" name="firstName"
+                        #firstName="ngModel">
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="endTime">Last Name</label>
+                      <input type="text" class="form-control" required id="endDateTime" [(ngModel)]="meeting.attendee.lastName" name="endDateTime" #startDateTime="ngModel">
+                    </div>
+                  </div>
+            
+                
+            
+                <div class="form-row">
+                  <div class="form-group  col-md-12">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" [(ngModel)]="meeting.address" name="address">
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+            
+                  <div class="form-group col-md-4">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" [(ngModel)]="meeting.city" name="city">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" [(ngModel)]="meeting.state" name="state">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="zip">Zip</label>
+                    <input type="text" class="form-control" id="zip" [(ngModel)]="meeting.zip" name="zip">
+                  </div>
+                </div>
+                <div class="form-row">
+            
+                    <div class="form-group col-md-4">
+                      <label for="city">Start time</label>
+                      
+                        <mwl-demo-utils-date-time-picker
+                          [(ngModel)]="meeting.start" name="start"
+                          placeholder="Not set">
+                        </mwl-demo-utils-date-time-picker>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="state">End time</label>
+                      
+                      <mwl-demo-utils-date-time-picker
+                          [(ngModel)]="meeting.end" name="end"
+                          placeholder="Not set">
+                        </mwl-demo-utils-date-time-picker>
+                    </div>
+              
+                  </div>
+                <div class="m-t-1 m-b-1">
+                  <button type="submit" class="btn btn-primary m-t-1">Add</button>
+                </div>
+              </form>
+            </div>
+
+      </div>
+    </div>
+  </div>
+</div>
