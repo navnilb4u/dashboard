@@ -10,7 +10,8 @@ import { DemoUtilsModule } from '../../shared/modules/demo-utils/module';
 import { PersonDetailComponent } from './components/person-detail/person-detail.component';
 import { ReservationDetailComponent } from './components/reservation-detail/reservation-detail.component';
 import { HotelBookingComponent } from './components/hotel-booking/hotel-booking.component';
-import {MeetingModule} from './components/meeting/module'
+import {MeetingModule} from './components/meeting/module';
+import { IternaryDetailsComponent } from './components/iternary-details/iternary-details.component'
 
 @NgModule({
     imports: [CommonModule,FormsModule,
@@ -21,6 +22,7 @@ import {MeetingModule} from './components/meeting/module'
     declarations: [IternaryComponent, 
         PersonDetailComponent,
         ReservationDetailComponent,
-        HotelBookingComponent]
+        HotelBookingComponent,
+        IternaryDetailsComponent]
 })
 export class IternaryModule {}

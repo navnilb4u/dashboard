@@ -1,4 +1,41 @@
-<app-person-detail></app-person-detail>
-<app-reservation-detail></app-reservation-detail>
-<app-hotel-booking></app-hotel-booking>
-<app-meeting></app-meeting>
+<div [hidden]="isEditIternary">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header"><h2 class="text-muted">Iternaries</h2></div>
+                <div class="card-body">
+                    <table class="card-body table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let itnry of iternaries; let i = index">
+                                <td scope="row" (click)="onSelect(i)">
+                                    <i class="fa fa-fw fa-edit"></i>&nbsp;&nbsp; {{i+1}}
+                                </td>
+                                <td> {{itnry.person.firstName}} {{itnry.person.lastName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-lg btn-primary" (click)="editIternary()">Add Iternary</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div [hidden]="!isEditIternary">
+    <app-person-detail [iternary]="iternary"></app-person-detail>
+    <app-reservation-detail [iternary]="iternary"></app-reservation-detail>
+    <app-hotel-booking [iternary]="iternary"></app-hotel-booking>
+    <app-meeting [iternary]="iternary"></app-meeting>
+    <button type="button" class="btn btn-lg btn-primary" (click)="saveIternary()">Save Iternary</button>
+    <button type="button" class="btn btn-lg btn-danger" (click)="cancelIternary()">Cancel</button>
+</div>
+
+
+
+

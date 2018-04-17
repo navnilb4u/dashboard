@@ -1,27 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, Input } from '@angular/core';
 import {Event} from '../../../../shared/services/event'
-import {IternaryService} from '../../../../shared/services/iternary.service'
+//import {IternaryService} from '../../../../shared/services/iternary.service'
+import{Iternary} from '../../../../shared/services/iternary'
 
 @Component({
   selector: 'app-reservation-detail',
   templateUrl: './reservation-detail.component.html',
   styleUrls: ['./reservation-detail.component.css']
 })
-export class ReservationDetailComponent implements OnInit {
+export class ReservationDetailComponent implements OnChanges {
+  
+  @Input() iternary:Iternary;
 
-  constructor(private iternaryService: IternaryService) { }
+  constructor() { }
 
   reservations : Event[];
   reservation= new Event();
   selectedRsrvns : Event;
 
-  ngOnInit() {
-    this.reservations=this.iternaryService.getReservation();
+  ngOnChanges() {
+    //this.reservations=this.iternaryService.getReservation();
+    this.reservations=this.iternary.reservations;
     this.showDefaultReservation();
   }
 
   addReservation(){
-    this.iternaryService.addReservation(this.reservation);
+    this.iternary.reservations.push(Object.assign({}, this.reservation));
+    //this.iternary.addReservation(this.reservation);
     this.reservation= new Event();
     this.showDefaultReservation();
   }
