@@ -42,8 +42,8 @@ export class Event implements CalendarEvent {
     to: string;
     attendee: Person = new Person();
 
-    start: Date = new Date();
-    end: Date = new Date();
+    start: Date;
+    end: Date;
     title: string;
     color: EventColor;
     actions?: EventAction[];
@@ -68,8 +68,8 @@ export class Event implements CalendarEvent {
           }
     }
     addDates() {
-        this.start = addHours(startOfHour(new Date()), 1);
-        this.end = addHours(this.start, 1);
+        this.start = startOfDay(new Date());
+        this.end = endOfDay(new Date());
     }
 
 }

@@ -2,7 +2,8 @@ import {
     Component,
     ChangeDetectionStrategy,
     ViewChild,
-    TemplateRef
+    TemplateRef,
+    OnChanges
   } from '@angular/core';
   import {
     startOfDay,
@@ -42,11 +43,11 @@ import {
   
   @Component({
     selector: 'mwl-demo-component',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     styleUrls: ['styles.css'],
     templateUrl: 'template.html'
   })
-  export class DemoComponent {
+  export class DemoComponent implements OnChanges {
 
 
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
@@ -76,8 +77,9 @@ import {
       }
     ];
   
-    refresh: Subject<any> = new Subject();
-    events: CalendarEvent[] = this.iternaryService.getMeetings();
+    refresh: Subject<any> = this.iternaryService.refresh;
+    events: CalendarEvent[] = this.iternaryService.meetings;
+
     // events: CalendarEvent[] = [
     //   {
     //     start: subDays(startOfDay(new Date()), 1),
@@ -116,10 +118,12 @@ import {
   
     constructor(private modal: NgbModal, private iternaryService: IternaryService) {}
 
-    ngOnInit() {
+      ngOnChanges() {
+        console.info("in on changes")
+      this.events =this.iternaryService.meetings;
+      this.refresh.next();
 
     }
-  
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       if (isSameMonth(date, this.viewDate)) {
         if (

@@ -44,12 +44,17 @@ export class PersonDetailComponent implements OnChanges {
   onSubmit(form: NgForm) {
     this.submitted = true;
     //this.iternaryService.addPerson(this.person)
-    this.iternary.createPerson(this.person);
+    this.iternary.person=Object.assign({}, this.person);
+    //this.iternary.createPerson(this.person);
     //this.iternary.person = this.person;
     
     form.reset();
     this.person = this.iternary.person;
   }
-  editPerson() { this.submitted = false; }
+  editPerson(form: NgForm) { 
+    this.submitted = false; 
+    this.person = this.iternary.person;
+    form.resetForm(this.person);
+  }
 
 }

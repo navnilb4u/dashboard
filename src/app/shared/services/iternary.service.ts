@@ -4,6 +4,7 @@ import {Person} from './person'
 import {Event} from './event'
 
 import {Iternary} from './iternary'
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class IternaryService {
@@ -18,6 +19,8 @@ export class IternaryService {
   reservations:Event[]=[];
   bookings:Event[]=[];
   meetings:Event[]=[];
+
+  refresh: Subject<any> = new Subject();
 
   getIternary():Iternary {
     if(this.iternary == null){
@@ -71,7 +74,9 @@ export class IternaryService {
   }
 
   addIternaries(iternary:Iternary){
-    this.meetings = this.meetings.concat(iternary.meetings)
+    //this.meetings = this.meetings.concat(iternary.meetings)
+    console.info("=====>>> "+this.meetings.length)
     this.iternaries.push(Object.assign({}, iternary));
+    this.refresh.next();
   }
 }
